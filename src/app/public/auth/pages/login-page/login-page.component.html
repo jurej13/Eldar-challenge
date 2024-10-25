@@ -1,0 +1,35 @@
+<section class="LoginWrapper">
+  <h1>Iniciar Session</h1>
+  <form
+    class="LoginWrapper-loginForm"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+  >
+    <div class="LoginWrapper-inputWrapper">
+      <label for="username">Usuario</label>
+      <input
+        pInputText
+        id="username"
+        class="LoginWrapper-inputForm"
+        formControlName="username"
+      />
+    </div>
+    <div class="LoginWrapper-inputWrapper">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        pInputText
+        id="password"
+        class="LoginWrapper-inputForm"
+        formControlName="password"
+      />
+    </div>
+    <p-button
+      label="Ingresar"
+      type="submit"
+      class="LoginWrapper-buttonSubmit"
+      [rounded]="true"
+      [disabled]="loginForm.invalid"
+    />
+  </form>
+</section>

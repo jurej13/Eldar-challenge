@@ -1,0 +1,26 @@
+.Authlayout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f4f4f4;
+  flex-direction: row;
+
+  &-contentLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    flex-grow: 1;
+    border-radius: 1rem;
+  }
+  &-contentImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    // flex-grow: 1;
+  }
+  &-imgLogin {
+    height: 100%;
+  }
+}

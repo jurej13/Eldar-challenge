@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   inject,
+  Input,
   OnInit,
   Output,
   signal,
@@ -18,6 +19,7 @@ import { Store } from '@ngrx/store';
 import { selectRole } from '../../../../core/store/auth/selectors/auth.selectors';
 import { UserRoleEnum } from '../../../../core/enums/UserRole.enum';
 import { DashboardModalComponent } from '../dashboardModal/dashboardModal.component';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 @Component({
   selector: 'table-dashboard-component',
   standalone: true,
@@ -43,16 +45,26 @@ export class TableDashboardComponent implements OnInit {
   posts = signal<PostModel[]>([]);
   currentPage = signal<number>(1);
   loading = signal<boolean>(false);
-
+  private searchDebouncer: Subject<string> = new Subject<string>();
+  totalRecords = signal<number>(0);
   ngOnInit(): void {
     this.loadPosts();
+    this.searchDebouncer
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((term) => {
+        this.dataTableService.searchPosts(term);
+        this.loadPosts();
+      });
   }
-
+  @Input() set searchTerm(value: string) {
+    this.searchDebouncer.next(value);
+  }
   loadPosts() {
     this.loading.set(true);
     this.dataTableService.getPaginatedPosts(this.currentPage()).subscribe({
       next: (posts) => {
         this.posts.set(posts);
+        this.totalRecords.set(this.dataTableService.getTotalPosts());
         this.loading.set(false);
       },
       error: (err) => {

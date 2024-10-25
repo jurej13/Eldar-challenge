@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { selectRole } from '../../../../core/store/auth/selectors/auth.selectors';
 import { CommonModule } from '@angular/common';
 import { UserRoleEnum } from '../../../../core/enums/UserRole.enum';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ import { UserRoleEnum } from '../../../../core/enums/UserRole.enum';
     TableDashboardComponent,
     DashboardModalComponent,
     ButtonModule,
+    FormsModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
@@ -22,6 +24,7 @@ import { UserRoleEnum } from '../../../../core/enums/UserRole.enum';
 export class DashboardComponent {
   @ViewChild('createModal') createModal!: DashboardModalComponent;
   @ViewChild(TableDashboardComponent) tableDashboard!: TableDashboardComponent;
+  searchTerm: string = '';
   private store = inject(Store);
   userRole$ = this.store.select(selectRole);
   userEnum = UserRoleEnum;

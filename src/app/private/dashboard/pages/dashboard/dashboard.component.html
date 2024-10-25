@@ -1,18 +1,33 @@
 <section class="DashboardPage">
   <div class="DashboardPage-header">
     <h3 class="DashboardPage-title">Dashboard</h3>
-    <button
-      *ngIf="(userRole$ | async) === userEnum.Admin"
-      type="button"
-      (click)="openModal()"
-      pButton
-      pRipple
-      label="Crear"
-      icon="pi pi-plus"
-    ></button>
+    <span class="DashboardPage-searchButton">
+      <input
+        pInputText
+        id="title"
+        [(ngModel)]="searchTerm"
+        placeholder="Buscar..."
+        class="DashboardPage-inputForm"
+      />
+      <button
+        *ngIf="(userRole$ | async) === userEnum.Admin"
+        type="button"
+        (click)="openModal()"
+        pButton
+        pRipple
+        label="Crear"
+        class="DashboardPage-buttonCreate"
+        icon="pi pi-plus"
+      ></button>
+    </span>
   </div>
-
-  <table-dashboard-component #tableDashboard (reloadPosts)="onPostsChange()" />
+  <div class="DashboardPage-tableWrapper">
+    <table-dashboard-component
+      #tableDashboard
+      [searchTerm]="searchTerm"
+      (reloadPosts)="onPostsChange()"
+    />
+  </div>
 </section>
 <dashboard-modal-component
   #createModal

@@ -14,7 +14,7 @@
       [rows]="10"
       [showCurrentPageReport]="true"
       [currentPageReportTemplate]="'{first} - {last} de {totalRecords} posts'"
-      [totalRecords]="100"
+      [totalRecords]="totalRecords()"
       [lazy]="true"
       (onPage)="onPageChange($event)"
       styleClass="p-datatable-sm"

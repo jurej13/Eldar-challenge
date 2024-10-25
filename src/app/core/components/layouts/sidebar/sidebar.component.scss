@@ -59,9 +59,7 @@
     margin: 50px 0 0;
     display: flex;
     flex-direction: column;
-    height: calc(
-      100vh - 80px
-    ); // Ajustar altura para acomodar el divider y logout
+    height: calc(100vh - 80px);
   }
 
   &-link {
@@ -86,12 +84,12 @@
     }
 
     &--logout {
-      margin-top: auto; // Empuja el botón de logout al final
+      margin-top: auto;
       a {
-        color: #ff4f4f; // Color rojo suave para distinguir el logout
+        color: #ff4f4f;
 
         &:hover {
-          background: rgba(255, 79, 79, 0.1); // Hover rojo transparente
+          background: rgba(255, 79, 79, 0.1);
         }
       }
     }

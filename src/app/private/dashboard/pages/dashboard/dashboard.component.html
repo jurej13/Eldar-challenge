@@ -14,4 +14,7 @@
 
   <table-dashboard-component #tableDashboard (reloadPosts)="onPostsChange()" />
 </section>
-<dashboard-modal-component #createModal></dashboard-modal-component>
+<dashboard-modal-component
+  #createModal
+  (postCreated)="onPostsChange()"
+></dashboard-modal-component>

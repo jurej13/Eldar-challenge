@@ -52,7 +52,6 @@ export class AuthService {
             ...userData,
             token,
           });
-          console.log(this._currentUser());
           return { success: true, user: this.currentUser() };
         } else {
           return { success: false, user: this._currentUser() };

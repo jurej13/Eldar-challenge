@@ -89,7 +89,6 @@ export class DashboardModalComponent {
         };
         this.dashboardService.editPost(updateData).subscribe({
           next: (response) => {
-            this.toastService.success('Post editado con exito');
             this.closeModal();
             this.postCreated.emit();
           },
@@ -97,22 +96,26 @@ export class DashboardModalComponent {
             this.toastService.error('Error al editar el post');
             console.error('Error al editar:', error);
           },
+          complete: () => {
+            this.toastService.success('Post editado con exito');
+          },
         });
       } else {
-        console.log(formData);
         const createData = {
           ...formData,
           userId: this.userId,
         };
         this.dashboardService.createPost(createData).subscribe({
           next: (response) => {
-            this.toastService.success('Post creado con exito');
             this.closeModal();
             this.postCreated.emit();
           },
           error: (error) => {
             this.toastService.error('Error al crear el post');
             console.error('Error al crear:', error);
+          },
+          complete: () => {
+            this.toastService.success('Post creado con exito');
           },
         });
       }

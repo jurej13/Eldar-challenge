@@ -67,7 +67,6 @@ export class TableDashboardComponent implements OnInit {
   }
   onPageChange({ first, rows }: any) {
     let page: number = first / rows + 1;
-    console.log(page);
     this.currentPage.set(page);
     this.loadPosts();
   }

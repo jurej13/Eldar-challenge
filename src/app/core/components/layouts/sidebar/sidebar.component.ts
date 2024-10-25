@@ -3,11 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   HostListener,
+  inject,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { sidebarLinks } from '../../../consts/sidebarConfig.const';
 import { SidebarModel } from '../../../interfaces/sidebarConfig.interface';
 import { ButtonModule } from 'primeng/button';
+import { Store } from '@ngrx/store';
+import { logout } from '../../../store/auth/actions/auth.actions';
 
 @Component({
   selector: 'sidebar-layout',
@@ -29,6 +32,12 @@ import { ButtonModule } from 'primeng/button';
               {{ link.name }}
             </a>
           </li>
+
+          <div class="Sidebar-divider"></div>
+
+          <li class="Sidebar-link Sidebar-link--logout">
+            <a href="#" (click)="logout($event)"> Cerrar Sesión </a>
+          </li>
         </ul>
       </nav>
 
@@ -46,6 +55,8 @@ export class SidebarComponent {
   isOpen: boolean = false;
   isMobile: boolean = false;
   links: SidebarModel[] = sidebarLinks;
+  private router = inject(Router);
+  private store = inject(Store);
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -67,5 +78,10 @@ export class SidebarComponent {
 
   toggleSidebar() {
     this.isOpen = !this.isOpen;
+  }
+
+  logout(event: Event) {
+    event.preventDefault();
+    this.store.dispatch(logout());
   }
 }

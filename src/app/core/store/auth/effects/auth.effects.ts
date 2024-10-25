@@ -47,4 +47,14 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
+  redirectToLogin$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.logout),
+        tap(() => {
+          this.router.navigate(['auth/login']);
+        })
+      ),
+    { dispatch: false }
+  );
 }

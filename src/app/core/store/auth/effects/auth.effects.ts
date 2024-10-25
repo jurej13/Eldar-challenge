@@ -4,11 +4,13 @@ import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import * as AuthActions from '../actions/auth.actions';
 import { AuthService } from '../../../../public/auth/services/auth.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../../services/toast.service';
 
 @Injectable()
 export class AuthEffects {
   private actions$ = inject(Actions);
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
   private router = inject(Router);
   login$ = createEffect(() =>
     this.actions$.pipe(
@@ -22,7 +24,11 @@ export class AuthEffects {
                 role: response.user.role,
               });
             }
+            this.toastService.error('Login incorrecto');
             throw new Error('Login failed');
+          }),
+          tap(() => {
+            this.toastService.success('Login correcto');
           }),
           catchError((error) =>
             of(AuthActions.loginFailure({ error: error.message }))

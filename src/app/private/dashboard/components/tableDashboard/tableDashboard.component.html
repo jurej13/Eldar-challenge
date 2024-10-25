@@ -4,11 +4,12 @@
   <div *ngIf="loading()" class="flex justify-content-center">
     <p>Cargando posts...</p>
   </div>
+
   <ng-container *ngIf="userRole$ | async as userRole">
     <p-table
       *ngIf="!loading() && posts().length > 0"
       [value]="posts()"
-      [tableStyle]="{ 'min-width': '50rem' }"
+      [tableStyle]="{ 'min-width': '100%' }"
       [paginator]="true"
       [rows]="10"
       [showCurrentPageReport]="true"
@@ -16,6 +17,8 @@
       [totalRecords]="100"
       [lazy]="true"
       (onPage)="onPageChange($event)"
+      styleClass="p-datatable-sm"
+      responsiveLayout="stack"
     >
       <ng-template pTemplate="header">
         <tr>
@@ -23,19 +26,21 @@
           <th>User</th>
           <th>Titulo</th>
           <th>Cuerpo</th>
-          <th *ngIf="userRole === userEnum.Admin" style="width: 5rem"></th>
+          <th *ngIf="userRole === userEnum.Admin" style="width: 5rem">
+            Acciones
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-post>
         <tr>
-          <td>{{ post.id }}</td>
-          <td>{{ post.userId }}</td>
-          <td>{{ post.title }}</td>
-          <td>{{ post.body }}</td>
-
-          <td *ngIf="userRole === userEnum.Admin">
+          <td data-label="Id" style="width: 4rem">{{ post.id }}</td>
+          <td data-label="User" style="width: 4rem">{{ post.userId }}</td>
+          <td data-label="Titulo">{{ post.title }}</td>
+          <td data-label="Cuerpo">{{ post.body }}</td>
+          <td *ngIf="userRole === userEnum.Admin" data-label="Acciones">
             <button
               type="button"
+              severity="secondary"
               pButton
               (click)="openEditModal(post)"
               pRipple
@@ -49,6 +54,7 @@
 
   <p *ngIf="!loading() && posts().length === 0">No hay posts</p>
 </div>
+
 <dashboard-modal-component
   #editModal
   (postCreated)="onPostUpdated()"

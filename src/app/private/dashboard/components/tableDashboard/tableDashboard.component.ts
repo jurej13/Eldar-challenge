@@ -37,6 +37,7 @@ export class TableDashboardComponent implements OnInit {
   @Output() reloadPosts = new EventEmitter<void>();
   private dataTableService = inject(DataTableService);
   private store = inject(Store);
+
   userRole$ = this.store.select(selectRole);
   userEnum = UserRoleEnum;
   posts = signal<PostModel[]>([]);
@@ -53,10 +54,8 @@ export class TableDashboardComponent implements OnInit {
       next: (posts) => {
         this.posts.set(posts);
         this.loading.set(false);
-        console.log('Posts cargados en componente:', posts);
       },
       error: (err) => {
-        console.error('Error loading posts:', err);
         this.loading.set(false);
       },
     });
@@ -64,12 +63,9 @@ export class TableDashboardComponent implements OnInit {
 
   goToPage(page: number) {
     this.currentPage.set(page);
-    console.log('asdasd', this.currentPage);
     this.loadPosts();
   }
   onPageChange({ first, rows }: any) {
-    console.log(rows);
-
     let page: number = first / rows + 1;
     console.log(page);
     this.currentPage.set(page);

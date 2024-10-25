@@ -1,56 +1,74 @@
 <p-dialog
   [(visible)]="visible"
   [header]="data ? 'Editar Post' : 'Crear Post'"
+  class="ModalContainer"
   [modal]="true"
   [style]="{ width: '450px' }"
   (onHide)="closeModal()"
 >
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="flex flex-column gap-3">
-      <div class="field">
-        <label for="title">Titulo</label>
-        <input pInputText id="title" formControlName="title" />
-        <small
-          class="p-error"
-          *ngIf="form.get('title')?.errors?.['required'] && form.get('title')?.touched"
-        >
-          El titulo es requerido
-        </small>
-        <small
-          class="p-error"
-          *ngIf="form.get('title')?.errors?.['minlength'] && form.get('title')?.touched"
-        >
-          El título debe tener al menos 3 caracteres
-        </small>
-      </div>
-
-      <div class="field">
-        <label for="body">Cuerpo</label>
-        <input pInputText id="body" formControlName="body" />
-        <small
-          class="p-error"
-          *ngIf="form.get('body')?.errors?.['required'] && form.get('body')?.touched"
-        >
-          El cuerpo es requerido
-        </small>
-        <small
-          class="p-error"
-          *ngIf="form.get('body')?.errors?.['minlength'] && form.get('body')?.touched"
-        >
-          El cuerpo debe tener al menos 3 caracteres
-        </small>
-      </div>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="ModalContainer-formWrapper"
+  >
+    <div class="ModalContainer-inputWrapper">
+      <label for="title" class="ModalContainer-inputLabel">Titulo</label>
+      <input
+        pInputText
+        id="title"
+        formControlName="title"
+        class="ModalContainer-inputForm"
+      />
+      <small
+        class="p-error"
+        *ngIf="form.get('title')?.errors?.['required'] && form.get('title')?.touched"
+      >
+        El titulo es requerido
+      </small>
+      <small
+        class="p-error"
+        *ngIf="form.get('title')?.errors?.['minlength'] && form.get('title')?.touched"
+      >
+        El título debe tener al menos 3 caracteres
+      </small>
+    </div>
+    <div class="ModalContainer-inputWrapper">
+      <label for="body" class="ModalContainer-inputLabel">Cuerpo</label>
+      <input
+        pInputText
+        id="body"
+        formControlName="body"
+        class="ModalContainer-inputForm"
+      />
+      <small
+        class="p-error"
+        *ngIf="form.get('body')?.errors?.['required'] && form.get('body')?.touched"
+      >
+        El cuerpo es requerido
+      </small>
+      <small
+        class="p-error"
+        *ngIf="form.get('body')?.errors?.['minlength'] && form.get('body')?.touched"
+      >
+        El cuerpo debe tener al menos 3 caracteres
+      </small>
     </div>
 
-    <div class="flex justify-content-end gap-2 mt-4">
+    <div class="ModalContainer-buttonsWrapper">
       <p-button
         label="Cancelar"
         severity="secondary"
+        class="ModalContainer-buttonsModalCancel"
         (click)="closeModal()"
         [outlined]="true"
       >
       </p-button>
-      <p-button label="Guardar" type="submit" [disabled]="!form.valid">
+      <p-button
+        label="Guardar"
+        class="ModalContainer-buttonsModalAcept"
+        type="submit"
+        [disabled]="!form.valid"
+      >
       </p-button>
     </div>
   </form>

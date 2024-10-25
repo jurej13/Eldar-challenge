@@ -1,3 +1,95 @@
 :host {
   display: block;
 }
+.ModalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.625rem;
+  gap: 0.625rem;
+  &-formWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0.625rem;
+    gap: 0.625rem;
+  }
+  &-inputWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0.625rem;
+    gap: 0.625rem;
+  }
+  &-inputForm {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    &:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+      outline: none;
+    }
+    &::placeholder {
+      color: #999;
+    }
+  }
+  &-inputLabel {
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  &-buttonsWrapper {
+    display: flex;
+    gap: 0.625rem;
+    justify-content: space-between;
+  }
+  &-buttonsModalAcept {
+    width: 100%;
+    ::ng-deep {
+      .p-button {
+        width: 100%;
+        padding: 0.75rem;
+        background: #4a90e2;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+
+        &:hover:not(:disabled) {
+          background: #357abd;
+        }
+
+        &:disabled {
+          background: #ccc;
+        }
+      }
+    }
+  }
+  &-buttonsModalCancel {
+    width: 100%;
+    ::ng-deep {
+      .p-button {
+        width: 100%;
+        padding: 0.75rem;
+        background: transparent;
+        color: #64748b;
+        border: 1px solid;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+
+        &:hover:not(:disabled) {
+          background: #64748b;
+          color: white;
+        }
+
+        &:disabled {
+          background: #ccc;
+        }
+      }
+    }
+  }
+}

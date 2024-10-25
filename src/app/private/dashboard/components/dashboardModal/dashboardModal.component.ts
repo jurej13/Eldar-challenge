@@ -20,6 +20,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../../../core/store/auth/selectors/auth.selectors';
 import { take } from 'rxjs';
+import { ToastService } from '../../../../core/services/toast.service';
 @Component({
   selector: 'dashboard-modal-component',
   standalone: true,
@@ -35,13 +36,15 @@ import { take } from 'rxjs';
 })
 export class DashboardModalComponent {
   @Output() postCreated = new EventEmitter<void>();
-  visible = false;
-  data?: PostModel;
-  private store = inject(Store);
-  userData$ = this.store.select(selectUser);
-  userId: number = 0;
   private fb = inject(FormBuilder);
   private dashboardService = inject(DashboardService);
+  private store = inject(Store);
+  private toastService = inject(ToastService);
+
+  visible = false;
+  data?: PostModel;
+  userData$ = this.store.select(selectUser);
+  userId: number = 0;
   constructor() {
     this.userData$.pipe(take(1)).subscribe((user) => {
       if (user) {
@@ -86,11 +89,12 @@ export class DashboardModalComponent {
         };
         this.dashboardService.editPost(updateData).subscribe({
           next: (response) => {
-            console.log('Post editado:', response);
+            this.toastService.success('Post editado con exito');
             this.closeModal();
             this.postCreated.emit();
           },
           error: (error) => {
+            this.toastService.error('Error al editar el post');
             console.error('Error al editar:', error);
           },
         });
@@ -102,11 +106,12 @@ export class DashboardModalComponent {
         };
         this.dashboardService.createPost(createData).subscribe({
           next: (response) => {
-            console.log('Post creado:', response);
+            this.toastService.success('Post creado con exito');
             this.closeModal();
             this.postCreated.emit();
           },
           error: (error) => {
+            this.toastService.error('Error al crear el post');
             console.error('Error al crear:', error);
           },
         });

@@ -1,37 +1,79 @@
 .LoginWrapper {
   display: flex;
-  background-color: rgba(255, 255, 255, 0.8);
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  border-radius: 0.3125rem;
   padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  gap: 1rem;
+  &-loginCard {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 40rem;
+    min-width: 21.875rem;
+    animation: fadeIn 0.5s ease-out;
+  }
+  &-title {
+    color: #333;
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
   &-loginForm {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    border-radius: 0.3125rem;
-    padding: 1rem;
-    gap: 1rem;
+    gap: 1.5rem;
   }
   &-inputWrapper {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    border-radius: 0.3125rem;
   }
   &-inputForm {
-    border-radius: 0.3125rem;
-    padding: 0.2rem;
-    border: 1px solid black;
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #999;
+    }
   }
+  &-inputLabel {
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
   &-buttonSubmit {
-    border-radius: 0.3125rem;
-    padding: 0.2rem;
+    width: 100%;
+    ::ng-deep {
+      .p-button {
+        width: 100%;
+        padding: 0.75rem;
+        background: #4a90e2;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+
+        &:hover:not(:disabled) {
+          background: #357abd;
+        }
+
+        &:disabled {
+          background: #ccc;
+        }
+      }
+    }
   }
 }

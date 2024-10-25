@@ -2,9 +2,8 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { UserRoleEnum } from '../../../shared/enums/UserRole.enum';
+import { UserRoleEnum } from '../../../core/enums/UserRole.enum';
 import { UserModel } from '../interfaces/user.interface';
-import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   private readonly baseUrl: string = environment.baseUrl;
   private http = inject(HttpClient);
-  private readonly TOKEN_KEY = environment.JWT_KEY;
+  private readonly TOKEN_KEY: string = environment.JWT_KEY;
   private _currentUser: WritableSignal<UserModel | null> =
     signal<UserModel | null>(null);
   constructor() {}

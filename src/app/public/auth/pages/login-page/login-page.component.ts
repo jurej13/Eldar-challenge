@@ -1,7 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { AuthService } from '../../services/auth.service';
+import { Store } from '@ngrx/store';
+import {
+  selectAuthError,
+  selectIsAuthenticated,
+} from '../../../../core/store/auth/selectors/auth.selectors';
+import { loginRequest } from '../../../../core/store/auth/actions/auth.actions';
 @Component({
   selector: 'login-page',
   standalone: true,
@@ -9,35 +19,24 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
   private fb = inject(FormBuilder);
-  private loginService = inject(AuthService);
-  public loginForm = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+  private store = inject(Store);
+
+  public loginForm: FormGroup = this.fb.group({
+    username: ['Antonette', [Validators.required, Validators.minLength(3)]],
+    password: ['asdasdasd', [Validators.required, Validators.minLength(6)]],
   });
+
+  isAuthenticated$ = this.store.select(selectIsAuthenticated);
+  error$ = this.store.select(selectAuthError);
+
   constructor() {}
 
-  ngOnInit() {}
-
   login() {
-    console.log(this.loginForm.value);
     const { username, password } = this.loginForm.value;
     if (username && password) {
-      this.loginService.login(username).subscribe({
-        next: (res) => {
-          if (res.success) {
-            console.log(
-              `Login successful! User: ${JSON.stringify(res.user, null, 2)} `
-            );
-          } else {
-            console.log('Login failed');
-          }
-        },
-        error: (err) => {
-          console.error('Error during login', err);
-        },
-      });
+      this.store.dispatch(loginRequest({ username }));
     }
   }
 }

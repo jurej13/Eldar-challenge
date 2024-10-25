@@ -1,0 +1,33 @@
+.Sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #333;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  transition: left 0.3s ease;
+
+  &.open {
+    left: 0;
+  }
+  &-nav {
+  }
+  &-links {
+    list-style: none;
+    padding: 15px;
+    margin: 50px 0 0;
+  }
+  &-link {
+    margin: 15px 0;
+  }
+  &-link a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
